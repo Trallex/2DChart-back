@@ -13530,11 +13530,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\C#\\2DChart\\2DChart\\2DChart.csproj",
+      "projectUniqueName": "C:\\C#\\2DChart-back\\2DChart\\2DChart.csproj",
       "projectName": "2DChart",
-      "projectPath": "C:\\C#\\2DChart\\2DChart\\2DChart.csproj",
+      "projectPath": "C:\\C#\\2DChart-back\\2DChart\\2DChart.csproj",
       "packagesPath": "C:\\Users\\DamianF\\.nuget\\packages\\",
-      "outputPath": "C:\\C#\\2DChart\\2DChart\\obj\\",
+      "outputPath": "C:\\C#\\2DChart-back\\2DChart\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
