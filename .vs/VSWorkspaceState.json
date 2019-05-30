@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\2DChart",
+    "\\2DChart\\Controllers",
+    "\\2DChart\\Data",
+    "\\2DChart\\Data\\Models",
+    "\\2DChart\\Domain",
+    "\\2DChart\\Domain\\EquationMenager"
+  ],
+  "PreviewInSolutionExplorer": false
+}

@@ -26,3 +26,11 @@ C:\C#\2DChart-back\2DChart\obj\Debug\netcoreapp2.2\2DChart.AssemblyInfo.cs
 C:\C#\2DChart-back\2DChart\obj\Debug\netcoreapp2.2\2DChart.RazorTargetAssemblyInfo.cache
 C:\C#\2DChart-back\2DChart\obj\Debug\netcoreapp2.2\2DChart.dll
 C:\C#\2DChart-back\2DChart\obj\Debug\netcoreapp2.2\2DChart.pdb
+C:\Users\Jakub\Source\Repos\2DChart-back\2DChart\obj\Debug\netcoreapp2.2\2DChart.csproj.CoreCompileInputs.cache
+C:\Users\Jakub\Source\Repos\2DChart-back\2DChart\obj\Debug\netcoreapp2.2\2DChart.AssemblyInfoInputs.cache
+C:\Users\Jakub\Source\Repos\2DChart-back\2DChart\obj\Debug\netcoreapp2.2\2DChart.AssemblyInfo.cs
+C:\Users\Jakub\Source\Repos\2DChart-back\2DChart\obj\Debug\netcoreapp2.2\2DChart.dll
+C:\Users\Jakub\Source\Repos\2DChart-back\2DChart\obj\Debug\netcoreapp2.2\2DChart.pdb
+C:\Users\Jakub\Source\Repos\2DChart-back\2DChart\obj\Debug\netcoreapp2.2\2DChart.csprojAssemblyReference.cache
+C:\Users\Jakub\Source\Repos\2DChart-back\2DChart\obj\Debug\netcoreapp2.2\2DChart.RazorAssemblyInfo.cache
+C:\Users\Jakub\Source\Repos\2DChart-back\2DChart\obj\Debug\netcoreapp2.2\2DChart.RazorAssemblyInfo.cs
