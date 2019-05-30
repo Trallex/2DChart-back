@@ -7,7 +7,6 @@ namespace _2DChart.Data.Models
     {
         public Repository()
         {
-            ChaRep = new HashSet<ChaRep>();
             UseRep = new HashSet<UseRep>();
         }
 
@@ -16,7 +15,7 @@ namespace _2DChart.Data.Models
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
 
-        public virtual ICollection<ChaRep> ChaRep { get; set; }
+        public virtual ICollection<Chart> Charts { get; set; }
         public virtual ICollection<UseRep> UseRep { get; set; }
     }
 }

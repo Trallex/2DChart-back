@@ -16,60 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cha_fun`
---
-
-DROP TABLE IF EXISTS `cha_fun`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `cha_fun` (
-  `ChaId` char(36) NOT NULL,
-  `FunId` char(36) NOT NULL,
-  PRIMARY KEY (`ChaId`,`FunId`),
-  KEY `FunId` (`FunId`),
-  KEY `ChaId` (`ChaId`),
-  CONSTRAINT `cha_fun_ibfk_1` FOREIGN KEY (`ChaId`) REFERENCES `chart` (`ChartId`),
-  CONSTRAINT `cha_fun_ibfk_2` FOREIGN KEY (`FunId`) REFERENCES `function` (`FunctionId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cha_fun`
---
-
-LOCK TABLES `cha_fun` WRITE;
-/*!40000 ALTER TABLE `cha_fun` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cha_fun` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cha_rep`
---
-
-DROP TABLE IF EXISTS `cha_rep`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `cha_rep` (
-  `ChaId` char(36) NOT NULL,
-  `RepId` char(36) NOT NULL,
-  PRIMARY KEY (`ChaId`,`RepId`),
-  KEY `ChaId` (`ChaId`,`RepId`),
-  KEY `RepId` (`RepId`),
-  CONSTRAINT `cha_rep_ibfk_1` FOREIGN KEY (`ChaId`) REFERENCES `chart` (`ChartId`),
-  CONSTRAINT `cha_rep_ibfk_2` FOREIGN KEY (`RepId`) REFERENCES `repository` (`RepositoryId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cha_rep`
---
-
-LOCK TABLES `cha_rep` WRITE;
-/*!40000 ALTER TABLE `cha_rep` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cha_rep` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `chart`
 --
 
@@ -80,7 +26,10 @@ CREATE TABLE `chart` (
   `ChartId` char(36) NOT NULL,
   `Logo` text NOT NULL,
   `CreationDate` date NOT NULL,
-  PRIMARY KEY (`ChartId`)
+  `RepositoryId` char(36) NOT NULL,
+  PRIMARY KEY (`ChartId`),
+  KEY `chart_ibfk_1_idx` (`RepositoryId`),
+  CONSTRAINT `chart_ibfk_1` FOREIGN KEY (`RepositoryId`) REFERENCES `repository` (`RepositoryId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -91,33 +40,6 @@ CREATE TABLE `chart` (
 LOCK TABLES `chart` WRITE;
 /*!40000 ALTER TABLE `chart` DISABLE KEYS */;
 /*!40000 ALTER TABLE `chart` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `fun_par`
---
-
-DROP TABLE IF EXISTS `fun_par`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `fun_par` (
-  `FunId` char(36) NOT NULL,
-  `ParId` char(36) NOT NULL,
-  PRIMARY KEY (`FunId`,`ParId`),
-  KEY `FunId` (`FunId`),
-  KEY `ParId` (`ParId`),
-  CONSTRAINT `fun_par_ibfk_1` FOREIGN KEY (`FunId`) REFERENCES `function` (`FunctionId`),
-  CONSTRAINT `fun_par_ibfk_2` FOREIGN KEY (`ParId`) REFERENCES `parameter` (`ParameterId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `fun_par`
---
-
-LOCK TABLES `fun_par` WRITE;
-/*!40000 ALTER TABLE `fun_par` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fun_par` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -134,7 +56,10 @@ CREATE TABLE `function` (
   `Approximation` double NOT NULL,
   `Name` text NOT NULL,
   `CreationDate` date NOT NULL,
-  PRIMARY KEY (`FunctionId`)
+  `ChartId` char(36) NOT NULL,
+  PRIMARY KEY (`FunctionId`),
+  KEY `function_ibfk_1_idx` (`ChartId`),
+  CONSTRAINT `function_ibfk_1` FOREIGN KEY (`ChartId`) REFERENCES `chart` (`ChartId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -158,7 +83,10 @@ CREATE TABLE `parameter` (
   `ParameterId` char(36) NOT NULL,
   `Value` double NOT NULL,
   `Variable` text NOT NULL,
-  PRIMARY KEY (`ParameterId`)
+  `FunctionId` char(36) NOT NULL,
+  PRIMARY KEY (`ParameterId`),
+  KEY `parameter_ibfk_1_idx` (`FunctionId`),
+  CONSTRAINT `parameter_ibfk_1` FOREIGN KEY (`FunctionId`) REFERENCES `function` (`FunctionId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -260,4 +188,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-17 14:54:58
+-- Dump completed on 2019-05-30 21:52:28
