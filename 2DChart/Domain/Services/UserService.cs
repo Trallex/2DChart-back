@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using _2DChart.Data.Database;
 using _2DChart.Data.Models;
 using _2DChart.Helpers;
 

@@ -7,15 +7,15 @@ namespace _2DChart.Data.Models
     {
         public Chart()
         {
-            ChaFun = new HashSet<ChaFun>();
-            ChaRep = new HashSet<ChaRep>();
+            Functions = new HashSet<Function>();
         }
 
-        public Guid ChartId { get; set; }
+        public string ChartId { get; set; }
         public string Logo { get; set; }
         public DateTime CreationDate { get; set; }
+        public string RepositoryId { get; set; }
 
-        public virtual ICollection<ChaFun> ChaFun { get; set; }
-        public virtual ICollection<ChaRep> ChaRep { get; set; }
+        public virtual Repository Repository { get; set; }
+        public virtual ICollection<Function> Functions { get; set; }
     }
 }
