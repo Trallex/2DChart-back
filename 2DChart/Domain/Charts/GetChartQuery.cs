@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using _2DChart.Data.Database;
 using _2DChart.Data.Models;
 using _2DChart.Domain.Users.Queries;
 

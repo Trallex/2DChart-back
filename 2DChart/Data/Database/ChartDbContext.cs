@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
+using _2DChart.Data.Models;
 
-namespace _2DChart.Data.Models
+namespace _2DChart.Data.Database
 {
     public partial class ChartDbContext : DbContext
     {
@@ -15,10 +14,7 @@ namespace _2DChart.Data.Models
         {
         }
 
-        public virtual DbSet<ChaFun> ChaFun { get; set; }
-        public virtual DbSet<ChaRep> ChaRep { get; set; }
         public virtual DbSet<Chart> Chart { get; set; }
-        public virtual DbSet<FunPar> FunPar { get; set; }
         public virtual DbSet<Function> Function { get; set; }
         public virtual DbSet<Parameter> Parameter { get; set; }
         public virtual DbSet<Repository> Repository { get; set; }
@@ -27,78 +23,17 @@ namespace _2DChart.Data.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;user=root;password=root;database=graphdb;GuidFormat=Char36;");
-            }
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ChaFun>(entity =>
-            {
-                entity.HasKey(e => new { e.ChaId, e.FunId })
-                    .HasName("PRIMARY");
-
-                entity.ToTable("cha_fun");
-
-                entity.HasIndex(e => e.ChaId)
-                    .HasName("ChaId");
-
-                entity.HasIndex(e => e.FunId)
-                    .HasName("FunId");
-
-                entity.Property(e => e.ChaId).HasColumnType("char(36)");
-
-                entity.Property(e => e.FunId).HasColumnType("char(36)");
-
-                entity.HasOne(d => d.Cha)
-                    .WithMany(p => p.ChaFun)
-                    .HasForeignKey(d => d.ChaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("cha_fun_ibfk_1");
-
-                entity.HasOne(d => d.Fun)
-                    .WithMany(p => p.ChaFun)
-                    .HasForeignKey(d => d.FunId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("cha_fun_ibfk_2");
-            });
-
-            modelBuilder.Entity<ChaRep>(entity =>
-            {
-                entity.HasKey(e => new { e.ChaId, e.RepId })
-                    .HasName("PRIMARY");
-
-                entity.ToTable("cha_rep");
-
-                entity.HasIndex(e => e.RepId)
-                    .HasName("RepId");
-
-                entity.HasIndex(e => new { e.ChaId, e.RepId })
-                    .HasName("ChaId");
-
-                entity.Property(e => e.ChaId).HasColumnType("char(36)");
-
-                entity.Property(e => e.RepId).HasColumnType("char(36)");
-
-                entity.HasOne(d => d.Cha)
-                    .WithMany(p => p.ChaRep)
-                    .HasForeignKey(d => d.ChaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("cha_rep_ibfk_1");
-
-                entity.HasOne(d => d.Rep)
-                    .WithMany(p => p.ChaRep)
-                    .HasForeignKey(d => d.RepId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("cha_rep_ibfk_2");
-            });
-
             modelBuilder.Entity<Chart>(entity =>
             {
                 entity.ToTable("chart");
+
+                entity.HasIndex(e => e.RepositoryId)
+                    .HasName("chart_ibfk_1_idx");
 
                 entity.Property(e => e.ChartId).HasColumnType("char(36)");
 
@@ -107,60 +42,66 @@ namespace _2DChart.Data.Models
                 entity.Property(e => e.Logo)
                     .IsRequired()
                     .HasColumnType("text");
-            });
 
-            modelBuilder.Entity<FunPar>(entity =>
-            {
-                entity.HasKey(e => new { e.FunId, e.ParId })
-                    .HasName("PRIMARY");
+                entity.Property(e => e.RepositoryId)
+                    .IsRequired()
+                    .HasColumnType("char(36)");
 
-                entity.ToTable("fun_par");
-
-                entity.HasIndex(e => e.FunId)
-                    .HasName("FunId");
-
-                entity.HasIndex(e => e.ParId)
-                    .HasName("ParId");
-
-                entity.Property(e => e.FunId).HasColumnType("char(36)");
-
-                entity.Property(e => e.ParId).HasColumnType("char(36)");
-
-                entity.HasOne(d => d.Fun)
-                    .WithMany(p => p.FunPar)
-                    .HasForeignKey(d => d.FunId)
+                entity.HasOne(d => d.Repository)
+                    .WithMany(p => p.Charts)
+                    .HasForeignKey(d => d.RepositoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fun_par_ibfk_1");
-
-                entity.HasOne(d => d.Par)
-                    .WithMany(p => p.FunPar)
-                    .HasForeignKey(d => d.ParId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fun_par_ibfk_2");
+                    .HasConstraintName("chart_ibfk_1");
             });
 
             modelBuilder.Entity<Function>(entity =>
             {
                 entity.ToTable("function");
 
+                entity.HasIndex(e => e.ChartId)
+                    .HasName("function_ibfk_1_idx");
+
                 entity.Property(e => e.FunctionId).HasColumnType("char(36)");
+
+                entity.Property(e => e.ChartId)
+                    .IsRequired()
+                    .HasColumnType("char(36)");
 
                 entity.Property(e => e.CreationDate).HasColumnType("date");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnType("text");
+
+                entity.HasOne(d => d.Chart)
+                    .WithMany(p => p.Functions)
+                    .HasForeignKey(d => d.ChartId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("function_ibfk_1");
             });
 
             modelBuilder.Entity<Parameter>(entity =>
             {
                 entity.ToTable("parameter");
 
+                entity.HasIndex(e => e.FunctionId)
+                    .HasName("parameter_ibfk_1_idx");
+
                 entity.Property(e => e.ParameterId).HasColumnType("char(36)");
+
+                entity.Property(e => e.FunctionId)
+                    .IsRequired()
+                    .HasColumnType("char(36)");
 
                 entity.Property(e => e.Variable)
                     .IsRequired()
                     .HasColumnType("text");
+
+                entity.HasOne(d => d.Function)
+                    .WithMany(p => p.Parameters)
+                    .HasForeignKey(d => d.FunctionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("parameter_ibfk_1");
             });
 
             modelBuilder.Entity<Repository>(entity =>

@@ -18,6 +18,8 @@ using Microsoft.OpenApi.Models;
 using _2DChart.Data.Models;
 using _2DChart.Domain.Services;
 using Swashbuckle.AspNetCore.Swagger;
+using _2DChart.Data.Database;
+
 namespace _2DChart
 {
     public class Startup

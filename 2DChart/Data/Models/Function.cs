@@ -7,8 +7,7 @@ namespace _2DChart.Data.Models
     {
         public Function()
         {
-            ChaFun = new HashSet<ChaFun>();
-            FunPar = new HashSet<FunPar>();
+            Parameters = new HashSet<Parameter>();
         }
 
         public Guid FunctionId { get; set; }
@@ -17,8 +16,9 @@ namespace _2DChart.Data.Models
         public double Approximation { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
+        public Guid ChartId { get; set; }
 
-        public virtual ICollection<ChaFun> ChaFun { get; set; }
-        public virtual ICollection<FunPar> FunPar { get; set; }
+        public virtual Chart Chart { get; set; }
+        public virtual ICollection<Parameter> Parameters { get; set; }
     }
 }
