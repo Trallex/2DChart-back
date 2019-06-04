@@ -8,7 +8,7 @@ namespace _2DChart.Data.Models
         public Guid ParameterId { get; set; }
         public double Value { get; set; }
         public string Variable { get; set; }
-        public string FunctionId { get; set; }
+        public Guid FunctionId { get; set; }
 
         public virtual Function Function { get; set; }
     }
