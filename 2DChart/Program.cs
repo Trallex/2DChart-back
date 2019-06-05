@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace _2DChart
 {
-    public static class Program
+    public class Program
     {
         public static void Main(string[] args)
         {
@@ -19,6 +19,12 @@ namespace _2DChart
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .ConfigureLogging((context, builder) => 
+                    builder.AddConfiguration(context.Configuration.GetSection("Logging"))
+                        .AddDebug()
+                        .AddConsole()
+                );
+
     }
 }

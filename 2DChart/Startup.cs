@@ -35,14 +35,16 @@ namespace _2DChart
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddFluentValidation(fv=>fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddDbContext<ChartDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DockerConnection")))
                ;
             services.AddScoped<UserService>();
             services.AddMediatR(typeof(Startup));
             services.AddSwaggerGen(c =>
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "2DChart API"}));
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "2DChart API" }));
+//            services.AddHttpsRedirection(options =>
+//                options.HttpsPort = 80);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,8 +60,8 @@ namespace _2DChart
                 app.UseHsts();
             }
 
-           
-            app.UseHttpsRedirection();
+
+        //    app.UseHttpsRedirection();
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
