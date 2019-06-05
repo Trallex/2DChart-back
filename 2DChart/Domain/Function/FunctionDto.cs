@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using _2DChart.Domain.Charts;
+using _2DChart.Domain.Generics;
 
-namespace _2DChart.Domain.Charts
+namespace _2DChart.Domain.Function
 {
-    public class FunctionDto
+    public class FunctionDto : BaseDto
     {
-        public Guid FunctionId { get; set; }
         public double Min { get; set; }
         public double Max { get; set; }
         public double Approximation { get; set; }
         public string Name { get; set; }
+        public string Body { get; set; }
         public DateTime CreationDate { get; set; }
-        public List<ParameterDto> Parameters { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace _2DChart
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddDbContext<ChartDbContext>(options =>
-                options.UseMySql(Configuration.GetConnectionString("DockerConnection")))
+                options.UseMySql(Configuration.GetConnectionString("HerokuConnection")))
                ;
             services.AddScoped<UserService>();
             services.AddMediatR(typeof(Startup));

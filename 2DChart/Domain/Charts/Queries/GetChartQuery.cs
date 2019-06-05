@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using _2DChart.Data.Database;
-using _2DChart.Data.Models;
-using _2DChart.Domain.Users.Queries;
+using _2DChart.Domain.Function;
 
-namespace _2DChart.Domain.Charts
+namespace _2DChart.Domain.Charts.Queries
 {
     public class GetChartQuery : IRequest<ChartDto>
     {
@@ -26,10 +23,10 @@ namespace _2DChart.Domain.Charts
             {
                 return new ChartDto
                 {
-                    ChartId = Guid.NewGuid(),
+                    Guid = Guid.NewGuid(),
                     CreationDate = DateTime.Today,
                     Functions = new List<FunctionDto>(),
-                    Logo = "XDDD"
+                    Name = "XDDD"
 
                 };
             }
