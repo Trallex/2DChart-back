@@ -5,16 +5,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using _2DChart.Data.Database;
-using _2DChart.Domain.Repository;
 
-namespace _2DChart.Domain.Charts.Commands
+namespace _2DChart.Domain.Repository
 {
-    public class AddFunctionToChartCommand : IRequest<ChartDto>
+    public class AddChartToRepoCommand : IRequest<RepositoryDto>
     {
+        public Guid RepoId { get; set; }
         public Guid ChartId { get; set; }
-        public Guid FunctionId { get; set; }
-        public class Handler : IRequestHandler<AddFunctionToChartCommand,ChartDto>
+        public class Handler : IRequestHandler<AddChartToRepoCommand,RepositoryDto>
         {
             private readonly ChartDbContext _context;
             private readonly IMapper _mapper;
@@ -24,15 +24,15 @@ namespace _2DChart.Domain.Charts.Commands
                 _mapper = mapper;
             }
 
-            public async Task<ChartDto> Handle(AddFunctionToChartCommand request, CancellationToken cancellationToken)
+            public async Task<RepositoryDto> Handle(AddChartToRepoCommand request, CancellationToken cancellationToken)
             {
-                var function = await _context.Function.FindAsync(request.FunctionId,cancellationToken);
+                var repo = await _context.Repository.FindAsync(request.RepoId,cancellationToken);
                 var chart = await _context.Chart.FindAsync(request.ChartId,cancellationToken);
-                if (function == null || chart == null)
+                if (repo == null || chart == null)
                     return null;
-                function.Chart = chart;
+                chart.Repository = repo;
                 await _context.SaveChangesAsync(cancellationToken);
-                return _mapper.Map<ChartDto>(chart);
+                return _mapper.Map<RepositoryDto>(repo);
             }
         }
     }

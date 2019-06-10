@@ -17,13 +17,22 @@ namespace _2DChart.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult> GetRepositoryById(Guid id)
         {
-            var result = await Mediator.Send(new GetRepoByIdQuery {Id = id});
+            var result = await Mediator.Send(new GetRepoByIdQuery { Id = id });
             if (result == null)
             {
                 return NotFound();
             }
 
             return Ok(result);
+        }
+
+        [HttpGet("{repoId}/charts")]
+        [ProducesResponseType(typeof(List<ChartDto>), 200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult> GetRepoCharts(Guid repoId)
+        {
+            var result = await Mediator.Send(new GetRepoChartsQuery { RepoId = repoId });
+            return result == null ? (ActionResult)NotFound() : Ok(result);
         }
 
         [HttpPost]
@@ -34,18 +43,23 @@ namespace _2DChart.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var result = await Mediator.Send(new CreateRepositoryCommand());
+            var result = await Mediator.Send(request);
 
-            return CreatedAtAction(nameof(GetRepositoryById), new {Guid = result});
+            return CreatedAtAction(nameof(GetRepositoryById), new { Guid = result });
         }
 
         [HttpPost("{repoId}/{chartId}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(RepositoryDto),200)]
         [ProducesResponseType(404)]
         public async Task<ActionResult> AddChartToRepo(Guid repoId, Guid chartId)
         {
-            return Ok();
+            var result = await Mediator.Send(new AddChartToRepoCommand { RepoId = repoId,ChartId = chartId});
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
 

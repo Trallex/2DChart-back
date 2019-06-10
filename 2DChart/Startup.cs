@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using AutoMapper;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -19,6 +20,7 @@ using _2DChart.Data.Models;
 using _2DChart.Domain.Services;
 using Swashbuckle.AspNetCore.Swagger;
 using _2DChart.Data.Database;
+using _2DChart.Helpers;
 
 namespace _2DChart
 {
@@ -43,6 +45,12 @@ namespace _2DChart
             services.AddMediatR(typeof(Startup));
             services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "2DChart API" }));
+            var mappingConfig = new MapperConfiguration
+            (
+                mc => { mc.AddProfile(new MappingProfile()); }
+            );
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 //            services.AddHttpsRedirection(options =>
 //                options.HttpsPort = 80);
         }

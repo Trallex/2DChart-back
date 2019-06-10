@@ -14,7 +14,7 @@ namespace _2DChart.Controllers
     public class ChartController : BaseController
     {
         [HttpGet]
-        [ProducesResponseType(typeof(ChartDto),200)]
+        [ProducesResponseType(typeof(ChartDto), 200)]
         public async Task<ActionResult> GetMockChart()
         {
             var result = await Mediator.Send(new GetChartQuery());
@@ -26,7 +26,7 @@ namespace _2DChart.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult> GetChartById(Guid id)
         {
-            var result = await Mediator.Send(new GetChartByIdQuery {Id = id});
+            var result = await Mediator.Send(new GetChartByIdQuery { Id = id });
             if (result == null)
             {
                 return NotFound();
@@ -42,7 +42,7 @@ namespace _2DChart.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             var result = await Mediator.Send(new CreateChartCommand());
-            return CreatedAtAction(nameof(GetChartById), new {Guid = result});
+            return CreatedAtAction(nameof(GetChartById), new { Guid = result });
         }
 
         [HttpPost("{chartId}/{functionId}")]
@@ -51,7 +51,8 @@ namespace _2DChart.Controllers
         [ProducesResponseType(200)]
         public async Task<ActionResult> AddFunctionToChart(Guid chartId, Guid functionId)
         {
-            return Ok();
+            var result = await Mediator.Send(new AddFunctionToChartCommand { ChartId = chartId, FunctionId = functionId });
+            return result == null ? (ActionResult)NotFound() : Ok();
         }
 
 

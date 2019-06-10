@@ -10,6 +10,13 @@ namespace _2DChart.Domain.Repository
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
-        public List<ChartDto> Charts { get; set; }
+        public List<ChartListDto> Charts { get; set; }
+
+        public class ChartListDto : BaseDto
+        {
+            public string Name { get; set; }
+            public DateTime CreationDate { get; set; }
+        }
+
     }
 }

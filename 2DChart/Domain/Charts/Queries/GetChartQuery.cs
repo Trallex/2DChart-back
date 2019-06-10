@@ -25,7 +25,7 @@ namespace _2DChart.Domain.Charts.Queries
                 {
                     Guid = Guid.NewGuid(),
                     CreationDate = DateTime.Today,
-                    Functions = new List<FunctionDto>(),
+                    Functions = new List<ChartDto.FunctionListDto>(),
                     Name = "XDDD"
 
                 };

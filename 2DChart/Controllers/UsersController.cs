@@ -48,24 +48,42 @@ namespace _2DChart.Controllers
             return Ok(result);
         }
         [HttpGet("{userId}/repos")]
-        [ProducesResponseType(typeof(RepositoryDto), 200)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(List<RepositoryDto>), 200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult> GetUserRepos([FromBody] GetUserReposQuery request)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            return Ok();
+        public async Task<ActionResult> GetUserRepos(Guid userId)
+        {   var result = await Mediator.Send(new GetUserReposQuery {UserId = userId});
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
 
         [HttpPost("{userId}/{repoId}")]
         [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public async Task<ActionResult> AddRepoToUser(Guid userId, Guid repoId)
         {
+            var result = await Mediator.Send(new AddRepoToUserCommand {RepoId = repoId, UserId = userId});
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
+
+        [HttpDelete("{userId}/{repoId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult> DeleteUserRepo(Guid userId, Guid repoId)
+        {
+            var user = await Mediator.Send(new GetUserQuery {UserId = userId});
+            var repo = await Mediator.Send(new GetRepoByIdQuery {Id = repoId});
+            if (user == null || repo == null) return NotFound();
+            await Mediator.Send(new DeleteUserRepoCommand {RepoId = user.Guid, UserId = user.Guid});
             return Ok();
         }
+
 
     }
 }

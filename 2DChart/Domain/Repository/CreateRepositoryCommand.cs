@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
+using _2DChart.Data.Database;
 
 namespace _2DChart.Domain.Repository
 {
@@ -14,9 +16,25 @@ namespace _2DChart.Domain.Repository
 
         public class Handler : IRequestHandler<CreateRepositoryCommand, Guid>
         {
+            private readonly ChartDbContext _context;
+            private readonly IMapper _mapper;
+
+            public Handler(ChartDbContext context, IMapper mapper)
+            {
+                _context = context;
+                _mapper = mapper;
+            }
+
             public async Task<Guid> Handle(CreateRepositoryCommand request, CancellationToken cancellationToken)
             {
-                return Guid.NewGuid();
+                var repo = new Data.Models.Repository
+                {
+                    Name = request.Name,
+                    Description = request.Description
+                };
+                await _context.Repository.AddAsync(repo,cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
+                return repo.RepositoryId;
             }
         }
     }
