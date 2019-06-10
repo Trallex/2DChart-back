@@ -11,5 +11,9 @@ namespace _2DChart.Data.Models
         public Guid FunctionId { get; set; }
 
         public virtual Function Function { get; set; }
+
+        public override string ToString() {
+            return (Value + " * " + Variable+" ");
+        }
     }
 }
