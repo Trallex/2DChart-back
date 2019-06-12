@@ -26,7 +26,7 @@ namespace _2DChart.Domain.EquationMenager
         public List<double> GetPoints()
         {
             List<double> points = new List<double>();
-            double step = (functionData.Min + functionData.Max) / 1000;
+            double step = (Math.Abs(functionData.Min) + Math.Abs(functionData.Max)) / 1000;
             for (double i = functionData.Min; i < functionData.Max; i += step)
             {
                 points.Add(GetFunctionValue(i));
