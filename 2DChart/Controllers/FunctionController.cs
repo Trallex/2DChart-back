@@ -27,7 +27,8 @@ namespace _2DChart.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult> CreateFunction([FromBody] CreateFunctionCommand request)
         {
-            return Ok(await Mediator.Send(request));
+            var result = await Mediator.Send(request);
+            return result == null ? (ActionResult)BadRequest() : Ok(result);
         }
     }
 }

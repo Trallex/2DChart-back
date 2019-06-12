@@ -9,7 +9,6 @@ namespace _2DChart.Data.Models
         public double Min { get; set; }
         public double Max { get; set; }
         public double Approximation { get; set; }
-        public string FunctionString { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
         public string FunctionString { get; set; }

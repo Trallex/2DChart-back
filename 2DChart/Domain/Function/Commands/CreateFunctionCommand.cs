@@ -14,7 +14,7 @@ using _2DChart.Domain.EquationMenager;
 
 namespace _2DChart.Domain.Function.Commands
 {
-    public class CreateFunctionCommand : IRequest<Guid>
+    public class CreateFunctionCommand : IRequest<Guid?>
     {
         public double Min { get; set; }
         public double Max { get; set; }
@@ -22,7 +22,7 @@ namespace _2DChart.Domain.Function.Commands
         public string Name { get; set; }
         public string FunctionString { get; set; }
 
-        public class Handler : IRequestHandler<CreateFunctionCommand,Guid>
+        public class Handler : IRequestHandler<CreateFunctionCommand, Guid?>
         {
             private readonly ChartDbContext _context;
             private readonly IMapper _mapper;
@@ -33,10 +33,9 @@ namespace _2DChart.Domain.Function.Commands
                 _mapper = mapper;
             }
 
-            public async Task<Guid> Handle(CreateFunctionCommand request,
+            public async Task<Guid?> Handle(CreateFunctionCommand request,
                 CancellationToken cancellationToken)
             {
-               //check syntax
                 var function = new Data.Models.Function
                 {
                     CreationDate = DateTime.Now,
@@ -46,11 +45,13 @@ namespace _2DChart.Domain.Function.Commands
                     Max = request.Max,
                     Name = request.Name
                 };
-                await _context.AddAsync(function,cancellationToken);
+                _eqManager = new Equation(function);
+                if (!_eqManager.CheckSyntax()) return null;
+                await _context.AddAsync(function, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return function.FunctionId;
-            }    
+            }
         }
     }
 }
