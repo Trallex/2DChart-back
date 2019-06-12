@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using _2DChart.Data.Models;
 using _2DChart.Domain.Repository;
+using _2DChart.Domain.Repository.Queries;
 using _2DChart.Domain.Users.Commands;
 using _2DChart.Domain.Users.Queries;
 

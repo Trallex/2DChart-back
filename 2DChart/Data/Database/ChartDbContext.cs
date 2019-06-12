@@ -16,7 +16,7 @@ namespace _2DChart.Data.Database
 
         public virtual DbSet<Chart> Chart { get; set; }
         public virtual DbSet<Function> Function { get; set; }
-        public virtual DbSet<Parameter> Parameter { get; set; }
+    //    public virtual DbSet<Parameter> Parameter { get; set; }
         public virtual DbSet<Repository> Repository { get; set; }
         public virtual DbSet<UseRep> UseRep { get; set; }
         public virtual DbSet<User> User { get; set; }
@@ -37,7 +37,7 @@ namespace _2DChart.Data.Database
 
                 entity.Property(e => e.ChartId).HasColumnType("char(36)");
 
-                entity.Property(e => e.CreationDate).HasColumnType("date");
+                entity.Property(e => e.CreationDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Logo)
                     .IsRequired()
@@ -65,9 +65,12 @@ namespace _2DChart.Data.Database
                 entity.Property(e => e.ChartId)
                     .HasColumnType("char(36)");
 
-                entity.Property(e => e.CreationDate).HasColumnType("date");
+                entity.Property(e => e.CreationDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("text");
+                entity.Property(e => e.FunctionString)
                     .IsRequired()
                     .HasColumnType("text");
 
@@ -78,29 +81,29 @@ namespace _2DChart.Data.Database
                     .HasConstraintName("function_ibfk_1");
             });
 
-            modelBuilder.Entity<Parameter>(entity =>
-            {
-                entity.ToTable("parameter");
-
-                entity.HasIndex(e => e.FunctionId)
-                    .HasName("parameter_ibfk_1_idx");
-
-                entity.Property(e => e.ParameterId).HasColumnType("char(36)");
-
-                entity.Property(e => e.FunctionId)
-                    .IsRequired()
-                    .HasColumnType("char(36)");
-
-                entity.Property(e => e.Variable)
-                    .IsRequired()
-                    .HasColumnType("text");
-
-                entity.HasOne(d => d.Function)
-                    .WithMany(p => p.Parameters)
-                    .HasForeignKey(d => d.FunctionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("parameter_ibfk_1");
-            });
+//            modelBuilder.Entity<Parameter>(entity =>
+//            {
+//                entity.ToTable("parameter");
+//
+//                entity.HasIndex(e => e.FunctionId)
+//                    .HasName("parameter_ibfk_1_idx");
+//
+//                entity.Property(e => e.ParameterId).HasColumnType("char(36)");
+//
+//                entity.Property(e => e.FunctionId)
+//                    .IsRequired()
+//                    .HasColumnType("char(36)");
+//
+//                entity.Property(e => e.Variable)
+//                    .IsRequired()
+//                    .HasColumnType("text");
+//
+//                entity.HasOne(d => d.Function)
+//                    .WithMany(p => p.Parameters)
+//                    .HasForeignKey(d => d.FunctionId)
+//                    .OnDelete(DeleteBehavior.ClientSetNull)
+//                    .HasConstraintName("parameter_ibfk_1");
+//            });
 
             modelBuilder.Entity<Repository>(entity =>
             {
@@ -108,7 +111,7 @@ namespace _2DChart.Data.Database
 
                 entity.Property(e => e.RepositoryId).HasColumnType("char(36)");
 
-                entity.Property(e => e.CreationDate).HasColumnType("date");
+                entity.Property(e => e.CreationDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Description)
                     .IsRequired()

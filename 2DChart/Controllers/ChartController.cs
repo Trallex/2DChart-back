@@ -14,13 +14,7 @@ namespace _2DChart.Controllers
 
     public class ChartController : BaseController
     {
-        [HttpGet]
-        [ProducesResponseType(typeof(ChartDto), 200)]
-        public async Task<ActionResult> GetMockChart()
-        {
-            var result = await Mediator.Send(new GetChartQuery());
-            return Ok(result);
-        }
+ 
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ChartDto), 200)]

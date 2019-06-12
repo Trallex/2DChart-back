@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using _2DChart.Domain.Charts;
 using _2DChart.Domain.Repository;
+using _2DChart.Domain.Repository.Commands;
+using _2DChart.Domain.Repository.Queries;
 
 namespace _2DChart.Controllers
 {

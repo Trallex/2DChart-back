@@ -14,15 +14,15 @@ using _2DChart.Domain.EquationMenager;
 
 namespace _2DChart.Domain.Function.Commands
 {
-    public class CreateFunctionCommand : IRequest<List<Parameter>>
+    public class CreateFunctionCommand : IRequest<Guid>
     {
         public double Min { get; set; }
         public double Max { get; set; }
         public double Approximation { get; set; }
         public string Name { get; set; }
-        public string Body { get; set; }
+        public string FunctionString { get; set; }
 
-        public class Handler : IRequestHandler<CreateFunctionCommand,List<Parameter>>
+        public class Handler : IRequestHandler<CreateFunctionCommand,Guid>
         {
             private readonly ChartDbContext _context;
             private readonly IMapper _mapper;
@@ -33,18 +33,23 @@ namespace _2DChart.Domain.Function.Commands
                 _mapper = mapper;
             }
 
-            public async Task<List<Parameter>> Handle(CreateFunctionCommand request,
+            public async Task<Guid> Handle(CreateFunctionCommand request,
                 CancellationToken cancellationToken)
             {
-                //TODO : eq manager need function to parse parameters into body
-                var func = new org.mariuszgromada.math
-                    .mxparser.Function(request.Body);
-                var expr = new Expression(func.getFunctionExpressionString());
-                expr.checkSyntax();
-                var list = new List<Parameter>();
-                var isCorect = func.checkSyntax();
-        
-                return list;
+               //check syntax
+                var function = new Data.Models.Function
+                {
+                    CreationDate = DateTime.Now,
+                    Approximation = request.Approximation,
+                    FunctionString = request.FunctionString,
+                    Min = request.Min,
+                    Max = request.Max,
+                    Name = request.Name
+                };
+                await _context.AddAsync(function,cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
+
+                return function.FunctionId;
             }    
         }
     }

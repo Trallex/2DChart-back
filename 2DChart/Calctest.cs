@@ -33,7 +33,7 @@ namespace _2DChart
             parameters.Add(parameter3);
 
             Function function = new Function();
-            function.Parameters = parameters;
+
 
             Equation equation = new Equation(function);
             Console.WriteLine(equation.FunctionString);

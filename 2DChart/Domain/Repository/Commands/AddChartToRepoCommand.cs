@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using _2DChart.Data.Database;
 
-namespace _2DChart.Domain.Repository
+namespace _2DChart.Domain.Repository.Commands
 {
     public class AddChartToRepoCommand : IRequest<RepositoryDto>
     {

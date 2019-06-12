@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,10 +6,8 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using _2DChart.Data.Database;
-using _2DChart.Domain.Charts;
-using _2DChart.Domain.Function;
 
-namespace _2DChart.Domain.Repository
+namespace _2DChart.Domain.Repository.Queries
 {
     public class GetRepoByIdQuery : IRequest<RepositoryDto>
     {

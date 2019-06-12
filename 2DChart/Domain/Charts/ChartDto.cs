@@ -16,7 +16,7 @@ namespace _2DChart.Domain.Charts
         public class FunctionListDto : BaseDto
         {
             public string Name { get; set; }
-            public string Body { get; set; }
+            public string FunctionString { get; set; }
             public DateTime CreationDate { get; set; }
         }
 

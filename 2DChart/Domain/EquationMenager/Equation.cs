@@ -20,7 +20,7 @@ namespace _2DChart.Domain.EquationMenager
         public Equation(Data.Models.Function function)
         {
             this.function = function;
-            SetFunctionString(function.Parameters);
+         //   SetFunctionString(function.Parameters);
             functionMX = new org.mariuszgromada.math.mxparser.Function(functionString);
 
         }

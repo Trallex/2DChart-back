@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using _2DChart.Data.Database;
 using _2DChart.Domain.Charts;
 
-namespace _2DChart.Domain.Repository
+namespace _2DChart.Domain.Repository.Queries
 {
     public class GetRepoChartsQuery : IRequest<List<ChartDto>>
     {

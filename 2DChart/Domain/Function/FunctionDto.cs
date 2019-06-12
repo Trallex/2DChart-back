@@ -11,7 +11,7 @@ namespace _2DChart.Domain.Function
         public double Max { get; set; }
         public double Approximation { get; set; }
         public string Name { get; set; }
-        public string Body { get; set; }
+        public string FunctionString { get; set; }
         public DateTime CreationDate { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace _2DChart.Domain.EquationMenager
             if (!_function.checkSyntax()) return;
 
 
+
         }
     }
 }
