@@ -27,7 +27,8 @@ namespace _2DChart.Domain.Charts.Commands
             {
                 var chart = new Chart
                 {
-                    Logo = request.Name
+                    Logo = request.Name,
+                    CreationDate = DateTime.Now
                 };
 
                 await _context.Chart.AddAsync(chart,cancellationToken);

@@ -30,7 +30,8 @@ namespace _2DChart.Domain.Repository
                 var repo = new Data.Models.Repository
                 {
                     Name = request.Name,
-                    Description = request.Description
+                    Description = request.Description,
+                    CreationDate = DateTime.Now
                 };
                 await _context.Repository.AddAsync(repo,cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);

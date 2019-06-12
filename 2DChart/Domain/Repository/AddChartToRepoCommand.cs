@@ -26,8 +26,8 @@ namespace _2DChart.Domain.Repository
 
             public async Task<RepositoryDto> Handle(AddChartToRepoCommand request, CancellationToken cancellationToken)
             {
-                var repo = await _context.Repository.FindAsync(request.RepoId,cancellationToken);
-                var chart = await _context.Chart.FindAsync(request.ChartId,cancellationToken);
+                var repo = await _context.Repository.FindAsync(request.RepoId);
+                var chart = await _context.Chart.FindAsync(request.ChartId);
                 if (repo == null || chart == null)
                     return null;
                 chart.Repository = repo;

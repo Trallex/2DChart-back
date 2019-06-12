@@ -44,7 +44,6 @@ namespace _2DChart.Data.Database
                     .HasColumnType("text");
 
                 entity.Property(e => e.RepositoryId)
-                    .IsRequired()
                     .HasColumnType("char(36)");
 
                 entity.HasOne(d => d.Repository)
@@ -64,7 +63,6 @@ namespace _2DChart.Data.Database
                 entity.Property(e => e.FunctionId).HasColumnType("char(36)");
 
                 entity.Property(e => e.ChartId)
-                    .IsRequired()
                     .HasColumnType("char(36)");
 
                 entity.Property(e => e.CreationDate).HasColumnType("date");

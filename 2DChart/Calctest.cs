@@ -13,7 +13,7 @@ namespace _2DChart
 {
     public class CalcTest
     {
-        public static void Main(string[] args)
+        public static void DUpa(string[] args)
         {
             Console.WriteLine("elo.");
 

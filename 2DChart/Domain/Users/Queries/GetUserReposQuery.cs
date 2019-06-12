@@ -29,6 +29,7 @@ namespace _2DChart.Domain.Users.Queries
             {
                 if (await _context.User.FindAsync(request.UserId) == null) return null;
                 var repos = await _context.UseRep.Where(user => user.UseId == request.UserId).Include(r=>r.Rep).Select(rep=>rep.Rep)
+                    .Include(r=>r.Charts)
                     .ToListAsync(cancellationToken);
                 return _mapper.Map<List<RepositoryDto>>(repos);
             }

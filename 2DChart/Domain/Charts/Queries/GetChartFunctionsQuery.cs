@@ -8,30 +8,30 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using _2DChart.Data.Database;
 using _2DChart.Domain.Function;
-using _2DChart.Domain.Repository;
 
 namespace _2DChart.Domain.Charts.Queries
 {
-    public class GetChartByIdQuery : IRequest<ChartDto>
+    public class GetChartFunctionsQuery : IRequest<List<FunctionDto>>
     {
-        public Guid Id { get; set; }
-        public class Handler : IRequestHandler<GetChartByIdQuery, ChartDto>
+        public Guid ChartId { get; set; }
+        public class Handler : IRequestHandler<GetChartFunctionsQuery,List<FunctionDto>>
         {
             private readonly ChartDbContext _context;
             private readonly IMapper _mapper;
-
             public Handler(ChartDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
             }
 
-            public async Task<ChartDto> Handle(GetChartByIdQuery request, CancellationToken cancellationToken)
+            public async Task<List<FunctionDto>> Handle(GetChartFunctionsQuery request, CancellationToken cancellationToken)
             {
-                var result = await _context.Chart.Where(ch => ch.ChartId == request.Id)
-                    .Include(f => f.Functions)
+                var chart = await _context.Chart.Where(ch => ch.ChartId == request.ChartId)
+                    .Include(c => c.Functions)
                     .SingleOrDefaultAsync(cancellationToken);
-                return result == null ? null : _mapper.Map<ChartDto>(result);
+                if (chart == null) return null;
+
+                return _mapper.Map<List<FunctionDto>>(chart.Functions);
             }
         }
     }

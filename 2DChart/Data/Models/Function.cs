@@ -16,7 +16,7 @@ namespace _2DChart.Data.Models
         public double Approximation { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
-        public Guid ChartId { get; set; }
+        public Guid? ChartId { get; set; }
 
         public virtual Chart Chart { get; set; }
         public virtual ICollection<Parameter> Parameters { get; set; }

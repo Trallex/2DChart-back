@@ -8,7 +8,7 @@ namespace _2DChart.Domain.EquationMenager
     public class Equation
     {
         Expression expression;
-        Function functionMX;
+        org.mariuszgromada.math.mxparser.Function functionMX;
         Data.Models.Function function;
         string functionString;
 
@@ -21,7 +21,7 @@ namespace _2DChart.Domain.EquationMenager
         {
             this.function = function;
             SetFunctionString(function.Parameters);
-            functionMX = new Function(functionString);
+            functionMX = new org.mariuszgromada.math.mxparser.Function(functionString);
 
         }
 

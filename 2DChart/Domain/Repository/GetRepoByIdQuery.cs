@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using _2DChart.Data.Database;
 using _2DChart.Domain.Charts;
 using _2DChart.Domain.Function;
@@ -26,7 +28,8 @@ namespace _2DChart.Domain.Repository
 
             public async Task<RepositoryDto> Handle(GetRepoByIdQuery request, CancellationToken cancellationToken)
             {
-                var result = await _context.Chart.FindAsync(request.Id);
+                var result = await _context.Repository.Where(repo => repo.RepositoryId == request.Id)
+                    .Include(c => c.Charts).SingleOrDefaultAsync(cancellationToken);
                 return result == null ? null : _mapper.Map<RepositoryDto>(result);
             }
         }

@@ -26,8 +26,8 @@ namespace _2DChart.Domain.Charts.Commands
 
             public async Task<ChartDto> Handle(AddFunctionToChartCommand request, CancellationToken cancellationToken)
             {
-                var function = await _context.Function.FindAsync(request.FunctionId,cancellationToken);
-                var chart = await _context.Chart.FindAsync(request.ChartId,cancellationToken);
+                var function = await _context.Function.FindAsync(request.FunctionId);
+                var chart = await _context.Chart.FindAsync(request.ChartId);
                 if (function == null || chart == null)
                     return null;
                 function.Chart = chart;
