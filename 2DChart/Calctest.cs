@@ -36,10 +36,7 @@ namespace _2DChart
             function.Parameters = parameters;
 
             Equation equation = new Equation(function);
-            Console.WriteLine(equation.FunctionString);
-            Console.WriteLine(equation.GetFunctionValue(0));
-            Console.WriteLine(equation.GetFunctionValue(1));
-            Console.WriteLine(equation.GetFunctionValue(2));
+
 
             Console.ReadKey();
 
