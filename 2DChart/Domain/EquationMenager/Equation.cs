@@ -7,44 +7,41 @@ namespace _2DChart.Domain.EquationMenager
 {
     public class Equation
     {
+        Data.Models.Function functionData;
         Expression expression;
-        org.mariuszgromada.math.mxparser.Function functionMX;
-        Data.Models.Function function;
-        string functionString;
+        org.mariuszgromada.math.mxparser.Function function;
 
-        public string FunctionString
+        public Equation( Data.Models.Function functionData )
         {
-            get { return functionString; }
+            this.functionData = functionData;
+            function = new org.mariuszgromada.math.mxparser.Function(functionData.FunctionString);
         }
 
-        public Equation(Data.Models.Function function)
+        public bool CheckSyntax()
         {
-            this.function = function;
-         //   SetFunctionString(function.Parameters);
-            functionMX = new org.mariuszgromada.math.mxparser.Function(functionString);
-
+            return function.checkSyntax();
         }
 
-        public double GetFunctionValue(double x)
+
+        public List<double> GetPoints()
+        {
+            List<double> points = new List<double>();
+            double step = (functionData.Min + functionData.Max) / 1000;
+            for (double i = functionData.Min; i < functionData.Max; i += step)
+            {
+                points.Add(GetFunctionValue(i));
+            }
+            return points;
+        }
+
+        private double GetFunctionValue(double x)
         {
             Argument a = new Argument(" x = " + x);
-            expression = new Expression("f(" + x + ")", functionMX);
+            expression = new Expression("f(" + x + ")", function);
             return expression.calculate();
 
         }
-        
 
-        public void SetFunctionString(ICollection<Data.Models.Parameter> parameters)
-        {
-            functionString = "f(x) = ";
-            foreach (Data.Models.Parameter parameter in parameters)
-            {
-                if (parameter.Value < 0 || functionString == "f(x) = ")
-                    functionString += parameter.ToString();
-                else
-                    functionString += "+ " + parameter.ToString();
-            }         
-        }
 
     }
 }

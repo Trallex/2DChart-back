@@ -15,32 +15,7 @@ namespace _2DChart
     {
         public static void DUpa(string[] args)
         {
-            Console.WriteLine("elo.");
-
-            Parameter parameter1 = new Parameter();
-            parameter1.Value = -3;
-            parameter1.Variable = "x^2";
-            Parameter parameter2 = new Parameter();
-            parameter2.Value = 5;
-            parameter2.Variable = "x";
-            Parameter parameter3 = new Parameter();
-            parameter3.Value = -3;
-            parameter3.Variable = "1";
-
-            ICollection<Parameter> parameters = new List<Parameter>();
-            parameters.Add(parameter1);
-            parameters.Add(parameter2);
-            parameters.Add(parameter3);
-
-            Function function = new Function();
-
-
-            Equation equation = new Equation(function);
-            Console.WriteLine(equation.FunctionString);
-            Console.WriteLine(equation.GetFunctionValue(0));
-            Console.WriteLine(equation.GetFunctionValue(1));
-            Console.WriteLine(equation.GetFunctionValue(2));
-
+         
             Console.ReadKey();
 
 
