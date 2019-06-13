@@ -16,7 +16,6 @@ namespace _2DChart.Domain.Function.Commands
         public double? Min { get; set; }
         public double? Max { get; set; }
         public int? Approximation { get; set; }
-        public string FunctionString { get; set; }
         public class Handler : IRequestHandler<UpdateFunctionCommand,FunctionDto>
         {
             private readonly ChartDbContext _context;
