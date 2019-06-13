@@ -73,6 +73,9 @@ namespace _2DChart.Data.Database
                 entity.Property(e => e.FunctionString)
                     .IsRequired()
                     .HasColumnType("text");
+                entity.Property(e => e.Approximation)
+                    .IsRequired()
+                    .HasColumnType("int");
 
                 entity.HasOne(d => d.Chart)
                     .WithMany(p => p.Functions)

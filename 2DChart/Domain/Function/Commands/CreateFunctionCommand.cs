@@ -18,7 +18,7 @@ namespace _2DChart.Domain.Function.Commands
     {
         public double Min { get; set; }
         public double Max { get; set; }
-        public double Approximation { get; set; }
+        public int Approximation { get; set; }
         public string Name { get; set; }
         public string FunctionString { get; set; }
 

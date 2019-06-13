@@ -7,7 +7,7 @@ namespace _2DChart.Data.Models
     {
         public Guid UseId { get; set; }
         public Guid RepId { get; set; }
-        public sbyte IsOwner { get; set; }
+        public bool IsOwner { get; set; }
 
         public virtual Repository Rep { get; set; }
         public virtual User Use { get; set; }

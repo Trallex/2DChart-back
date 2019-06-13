@@ -23,12 +23,24 @@ namespace _2DChart.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(Guid), 201)]
+        [ProducesResponseType(typeof(Guid), 200)]
         [ProducesResponseType(400)]
         public async Task<ActionResult> CreateFunction([FromBody] CreateFunctionCommand request)
         {
+            if (!ModelState.IsValid) return BadRequest();
             var result = await Mediator.Send(request);
             return result == null ? (ActionResult)BadRequest() : Ok(result);
+        }
+        
+        [HttpPut]
+        [ProducesResponseType(typeof(Guid), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult> UpdateFunction([FromBody] UpdateFunctionCommand request)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            var result = await Mediator.Send(request);
+            return result == null ? (ActionResult)NotFound() : Ok(result);
         }
     }
 }

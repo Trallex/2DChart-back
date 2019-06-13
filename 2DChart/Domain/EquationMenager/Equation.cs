@@ -27,7 +27,7 @@ namespace _2DChart.Domain.EquationMenager
         {
             List<double> points = new List<double>();
             double step = (Math.Abs(functionData.Min) + Math.Abs(functionData.Max)) / 1000;
-            for (double i = functionData.Min; i < functionData.Max; i += step)
+            for (double i = functionData.Min; i <= functionData.Max; i += step)
             {
                 points.Add(GetFunctionValue(i));
             }
@@ -38,7 +38,7 @@ namespace _2DChart.Domain.EquationMenager
         {
             Argument a = new Argument(" x = " + x);
             expression = new Expression("f(" + x + ")", function);
-            return expression.calculate();
+            return Math.Round(expression.calculate(),functionData.Approximation);
 
         }
 

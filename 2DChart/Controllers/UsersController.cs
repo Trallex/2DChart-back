@@ -15,15 +15,7 @@ namespace _2DChart.Controllers
 {
     public class UsersController : BaseController
     {
-        //For testing purposes
-        [HttpGet]
-        public async Task<ActionResult> GetUsers()
-        {
-            var result = await Mediator.Send(new GetUsersQuery());
-            return Ok(result);
-        }
 
-       
         [HttpPost("login")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -70,7 +62,7 @@ namespace _2DChart.Controllers
             {
                 return NotFound();
             }
-            return Ok(result);
+            return Ok();
         }
 
         [HttpDelete("{userId}/{repoId}")]
