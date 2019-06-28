@@ -1,4 +1,3 @@
-cd C:\C#\2DChart\2DChart-back\2DChart
 heroku login
 docker login
 docker build . -t chart2dapi

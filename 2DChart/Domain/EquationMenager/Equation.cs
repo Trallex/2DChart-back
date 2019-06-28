@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using org.mariuszgromada.math.mxparser;
+using _2DChart.Domain.Function;
 
 namespace _2DChart.Domain.EquationMenager
 {
@@ -11,7 +12,7 @@ namespace _2DChart.Domain.EquationMenager
         Expression expression;
         org.mariuszgromada.math.mxparser.Function function;
 
-        public Equation( Data.Models.Function functionData )
+        public Equation(Data.Models.Function functionData)
         {
             this.functionData = functionData;
             function = new org.mariuszgromada.math.mxparser.Function(functionData.FunctionString);
@@ -23,22 +24,33 @@ namespace _2DChart.Domain.EquationMenager
         }
 
 
-        public List<double> GetPoints()
+        public EvaluationDto GetPoints()
         {
-            List<double> points = new List<double>();
+            List<Double> pointsX = new List<Double>();
+            List<Double?> pointsY = new List<Double?>();
             double step = (Math.Abs(functionData.Min) + Math.Abs(functionData.Max)) / 1000;
             for (double i = functionData.Min; i <= functionData.Max; i += step)
             {
-                points.Add(GetFunctionValue(i));
+                pointsX.Add(i);
+                if (double.IsNaN(GetFunctionValue(i)))
+                {
+                    pointsY.Add(null);
+                }
+                else
+                {
+                    pointsY.Add(GetFunctionValue(i));
+                }
+                
             }
-            return points;
+
+            return new EvaluationDto { x = pointsX, y = pointsY };
         }
 
         private double GetFunctionValue(double x)
         {
             Argument a = new Argument(" x = " + x);
             expression = new Expression("f(" + x + ")", function);
-            return Math.Round(expression.calculate(),functionData.Approximation);
+            return Math.Round(expression.calculate(), functionData.Approximation);
 
         }
 
